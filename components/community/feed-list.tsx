@@ -67,6 +67,8 @@ export function FeedList({
           style={{ "--delay": `${Math.min(i % 12, 6) * 60}ms` } as React.CSSProperties}
         >
           <PostCard
+            // Remount when fresh server counts arrive so likes stay in sync.
+            key={`${post.likesCount}:${post.commentsCount}:${post.liked}`}
             post={post}
             now={now}
             canInteract={canInteract}

@@ -7,7 +7,11 @@ import { getCurrentProfile } from "@/lib/profile"
 
 // Shareable pages (profiles, artworks) that also work for logged-out visitors.
 export default async function PublicLayout({ children }: LayoutProps<"/">) {
-  const [current, t] = await Promise.all([getCurrentProfile(), getTranslations("public")])
+  const [current, t, tLegal] = await Promise.all([
+    getCurrentProfile(),
+    getTranslations("public"),
+    getTranslations("legal"),
+  ])
 
   return (
     <div className="flex flex-1 flex-col">
@@ -30,6 +34,12 @@ export default async function PublicLayout({ children }: LayoutProps<"/">) {
       <main id="main" className="mx-auto w-full max-w-6xl flex-1 px-5 pb-24 pt-10 sm:px-10 sm:pt-14">
         {children}
       </main>
+      <footer className="mx-auto flex w-full max-w-6xl flex-wrap justify-between gap-4 border-t px-5 py-8 text-sm text-muted-foreground sm:px-10">
+        <span className="font-heading font-bold text-foreground">STARBONDS</span>
+        <Link href="/privacy" className="underline-offset-4 hover:text-foreground hover:underline">
+          {tLegal("privacyLink")}
+        </Link>
+      </footer>
     </div>
   )
 }

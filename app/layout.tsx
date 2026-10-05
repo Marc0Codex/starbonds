@@ -26,6 +26,8 @@ export async function generateMetadata(): Promise<Metadata> {
     appleWebApp: { capable: true, title: "STARBONDS", statusBarStyle: "black-translucent" },
     icons: { icon: "/icons/192", apple: "/icons/apple-180" },
     formatDetection: { telephone: false },
+    openGraph: { type: "website", siteName: "STARBONDS" },
+    twitter: { card: "summary_large_image" },
   }
 }
 

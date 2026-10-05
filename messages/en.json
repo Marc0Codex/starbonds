@@ -252,6 +252,23 @@
     "join": "Join",
     "openApp": "Open the app"
   },
+  "legal": {
+    "privacyTitle": "Privacy policy",
+    "privacyDescription": "How STARBONDS collects, uses, and protects your data.",
+    "privacyHeading": "Privacy",
+    "privacyAccent": "policy",
+    "privacyIntro": "Your art and your data are yours. Here's, in plain language, what we store, why, and how you can control it.",
+    "updated": "Updated {date}",
+    "contents": "Contents",
+    "privacyLink": "Privacy policy",
+    "signupConsent": "By creating an account you agree to our <link>privacy policy</link>."
+  },
+  "offline": {
+    "title": "You're",
+    "accent": "offline",
+    "body": "Looks like there's no internet. Plei fell asleep waiting. Try again when you're back online.",
+    "retry": "Try again"
+  },
   "community": {
     "tabFollowing": "Following",
     "tabDiscover": "Discover",

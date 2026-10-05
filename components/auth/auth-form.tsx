@@ -15,6 +15,7 @@ type Mode = "login" | "signup"
 
 export function AuthForm({ mode, next, callbackError }: { mode: Mode; next?: string; callbackError?: boolean }) {
   const t = useTranslations("auth")
+  const tLegal = useTranslations("legal")
   const locale = useLocale()
   const [state, formAction, pending] = useActionState<AuthState, FormData>(
     mode === "login" ? login : signup,
@@ -101,6 +102,18 @@ export function AuthForm({ mode, next, callbackError }: { mode: Mode; next?: str
         <p role="alert" aria-live="polite" className="min-h-5 text-sm text-destructive">
           {errorKey ? t(`errors.${errorKey}`) : null}
         </p>
+
+        {!isLogin && (
+          <p className="text-sm text-muted-foreground">
+            {tLegal.rich("signupConsent", {
+              link: (chunks) => (
+                <Link href="/privacy" target="_blank" className="font-medium text-primary underline-offset-4 hover:underline">
+                  {chunks}
+                </Link>
+              ),
+            })}
+          </p>
+        )}
 
         <Button type="submit" size="lg" disabled={pending} className="w-full">
           {pending ? <Loader2 className="animate-spin" aria-hidden /> : null}
