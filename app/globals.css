@@ -1,0 +1,161 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-playfair);
+  --color-highlight: var(--highlight);
+  --color-highlight-foreground: var(--highlight-foreground);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/*
+ * STARBONDS design tokens — see design-system/starbonds/MASTER.md
+ * Vibrant rose (brand) + engagement blue (highlight). Neutral-warm surfaces
+ * so the artwork stays the hero.
+ */
+:root {
+  --background: #fff8f9;
+  --foreground: #1f0a12;
+  --card: #ffffff;
+  --card-foreground: #1f0a12;
+  --popover: #ffffff;
+  --popover-foreground: #1f0a12;
+  --primary: #e11d48;
+  --primary-foreground: #ffffff;
+  --secondary: #ffe4e8;
+  --secondary-foreground: #881337;
+  --muted: #f6eef1;
+  --muted-foreground: #5f4b57;
+  --accent: #fff1f2;
+  --accent-foreground: #881337;
+  --highlight: #2563eb;
+  --highlight-foreground: #ffffff;
+  --destructive: #dc2626;
+  --border: #f3d6dd;
+  --input: #ead0d7;
+  --ring: #e11d48;
+  --chart-1: #e11d48;
+  --chart-2: #2563eb;
+  --chart-3: #fb7185;
+  --chart-4: #60a5fa;
+  --chart-5: #881337;
+  --radius: 0.75rem;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1f0a12;
+  --sidebar-primary: #e11d48;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #fff1f2;
+  --sidebar-accent-foreground: #881337;
+  --sidebar-border: #f3d6dd;
+  --sidebar-ring: #e11d48;
+}
+
+.dark {
+  --background: #120a0e;
+  --foreground: #fcf0f3;
+  --card: #1c1217;
+  --card-foreground: #fcf0f3;
+  --popover: #1c1217;
+  --popover-foreground: #fcf0f3;
+  --primary: #fb7185;
+  --primary-foreground: #1f0a12;
+  --secondary: #3a1a26;
+  --secondary-foreground: #fecdd3;
+  --muted: #26181f;
+  --muted-foreground: #bfaab5;
+  --accent: #2c1720;
+  --accent-foreground: #fecdd3;
+  --highlight: #60a5fa;
+  --highlight-foreground: #0b1220;
+  --destructive: #f87171;
+  --border: rgb(255 255 255 / 10%);
+  --input: rgb(255 255 255 / 15%);
+  --ring: #fb7185;
+  --chart-1: #fb7185;
+  --chart-2: #60a5fa;
+  --chart-3: #fda4af;
+  --chart-4: #93c5fd;
+  --chart-5: #fecdd3;
+  --sidebar: #160d11;
+  --sidebar-foreground: #fcf0f3;
+  --sidebar-primary: #fb7185;
+  --sidebar-primary-foreground: #1f0a12;
+  --sidebar-accent: #2c1720;
+  --sidebar-accent-foreground: #fecdd3;
+  --sidebar-border: rgb(255 255 255 / 10%);
+  --sidebar-ring: #fb7185;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-heading tracking-tight;
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  a[href] {
+    cursor: pointer;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

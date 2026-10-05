@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "title": "STARBONDS — La red social para artistas",
+    "description": "Muestra tu arte, véndelo y encuentra artistas para colaborar."
+  },
+  "common": {
+    "appName": "STARBONDS",
+    "comingSoon": "Muy pronto",
+    "loading": "Cargando…",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "back": "Volver",
+    "or": "o"
+  },
+  "nav": {
+    "community": "Comunidad",
+    "marketplace": "Marketplace",
+    "match": "Match",
+    "messages": "Mensajes",
+    "activity": "Actividad",
+    "profile": "Perfil",
+    "settings": "Configuración",
+    "signOut": "Cerrar sesión",
+    "mainNavigation": "Navegación principal",
+    "skipToContent": "Saltar al contenido"
+  },
+  "landing": {
+    "eyebrow": "Para artistas que merecen ser vistos",
+    "title": "Tu arte, visto. Tu talento, conectado.",
+    "subtitle": "STARBONDS es la red social donde los artistas emergentes muestran su obra, la venden sin intermediarios y hacen match con otros artistas para colaborar.",
+    "ctaPrimary": "Crear mi cuenta",
+    "ctaSecondary": "Ya tengo cuenta",
+    "featureVisibilityTitle": "Visibilidad justa",
+    "featureVisibilityBody": "Nuestro feed impulsa a quienes recién empiezan, no solo a quienes ya tienen miles de seguidores.",
+    "featureMarketTitle": "Vende tu obra",
+    "featureMarketBody": "Publica obras y servicios por encargo, y conversa directo con quien quiere comprarte.",
+    "featureMatchTitle": "Match creativo",
+    "featureMatchBody": "Elige tus técnicas, estilos y objetivos, y encuentra artistas afines para crear juntos."
+  },
+  "auth": {
+    "loginTitle": "Bienvenido de vuelta",
+    "loginSubtitle": "Inicia sesión para seguir creando.",
+    "signupTitle": "Crea tu cuenta",
+    "signupSubtitle": "Únete a la comunidad de artistas.",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "displayName": "Nombre artístico",
+    "passwordHint": "Mínimo 8 caracteres.",
+    "loginButton": "Iniciar sesión",
+    "signupButton": "Crear cuenta",
+    "noAccount": "¿No tienes cuenta?",
+    "haveAccount": "¿Ya tienes cuenta?",
+    "goToSignup": "Regístrate",
+    "goToLogin": "Inicia sesión",
+    "checkEmailTitle": "Revisa tu correo",
+    "checkEmailBody": "Te enviamos un enlace a {email} para confirmar tu cuenta.",
+    "errors": {
+      "invalidEmail": "Ingresa un correo válido.",
+      "passwordTooShort": "La contraseña debe tener al menos 8 caracteres.",
+      "displayNameRequired": "Ingresa tu nombre artístico.",
+      "invalidCredentials": "Correo o contraseña incorrectos.",
+      "emailNotConfirmed": "Confirma tu correo antes de iniciar sesión.",
+      "userExists": "Ya existe una cuenta con ese correo.",
+      "generic": "Algo salió mal. Inténtalo de nuevo.",
+      "callback": "No pudimos completar el inicio de sesión. Inténtalo de nuevo."
+    }
+  },
+  "sections": {
+    "communityDescription": "Publicaciones de los artistas que sigues, grupos y una sección para descubrir talento nuevo.",
+    "marketplaceDescription": "Obras y servicios publicados directamente por los artistas.",
+    "matchDescription": "Desliza perfiles de artistas afines a ti y conecta para colaborar.",
+    "messagesDescription": "Tus conversaciones con matches y compradores.",
+    "activityDescription": "Likes, comentarios, nuevos seguidores y matches.",
+    "profileDescription": "Tu portafolio, publicaciones y obras a la venta.",
+    "settingsDescription": "Cuenta, idioma, privacidad y notificaciones."
+  },
+  "settings": {
+    "language": "Idioma",
+    "languageDescription": "Elige el idioma de la aplicación.",
+    "theme": "Tema",
+    "themeLight": "Claro",
+    "themeDark": "Oscuro",
+    "themeSystem": "Sistema"
+  }
+}
