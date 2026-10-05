@@ -21,6 +21,8 @@ export type FeedPost = {
   isOwn: boolean
   author: { id: string; username: string; displayName: string; avatarPath: string | null; newVoice: boolean }
   group: { slug: string; name: string } | null
+  /** Present only on sample posts from lib/demo.ts (local likes, no post page). */
+  demo?: { artSeed: string | null }
 }
 
 export type FeedComment = {

@@ -12,6 +12,8 @@ export type Candidate = {
   tagIds: number[]
   sharedTagIds: number[]
   coverPath: string | null
+  /** Present only on sample artists from lib/demo.ts (local swipes, never saved). */
+  demo?: { likesYou: boolean }
 }
 
 export type MatchSummary = {

@@ -7,6 +7,8 @@ import { useOptimistic, useState, useTransition } from "react"
 import { toast } from "sonner"
 
 import { deletePost, setLike } from "@/app/(app)/community/actions"
+import { GenerativeArt } from "@/components/brand/generative-art"
+import { DemoBadge } from "@/components/demo-badge"
 import { ProfileAvatar } from "@/components/profile/profile-avatar"
 import type { FeedPost } from "@/lib/posts"
 import { publicUrl } from "@/lib/storage"
@@ -36,11 +38,15 @@ export function PostCard({
   const [deleting, startDelete] = useTransition()
 
   const typeKey = TYPE_KEY[post.postType]
+  const isDemo = Boolean(post.demo)
   const postHref = `/posts/${post.id}`
+  const profileHref = isDemo ? null : `/u/${post.author.username}`
   const createdAt = new Date(post.createdAt)
 
   function toggleLike() {
     const next = { liked: !optimistic.liked, count: optimistic.count + (optimistic.liked ? -1 : 1) }
+    // Demo posts (lib/demo.ts) only like locally.
+    if (post.demo) return setLikeState(next)
     startLike(async () => {
       setOptimistic(next)
       const { ok } = await setLike(post.id, next.liked)
@@ -68,17 +74,17 @@ export function PostCard({
       )}
     >
       <header className="flex items-center gap-3">
-        <Link href={`/u/${post.author.username}`} className="shrink-0 rounded-full">
+        <MaybeLink href={profileHref} className="shrink-0 rounded-full">
           <ProfileAvatar
             name={post.author.displayName}
             src={publicUrl("avatars", post.author.avatarPath)}
             className="size-11"
           />
-        </Link>
+        </MaybeLink>
         <div className="flex min-w-0 flex-1 flex-col">
-          <Link href={`/u/${post.author.username}`} className="truncate font-semibold hover:text-primary">
+          <MaybeLink href={profileHref} className="truncate font-semibold hover:text-primary">
             {post.author.displayName}
-          </Link>
+          </MaybeLink>
           <p className="truncate text-sm text-muted-foreground">
             @{post.author.username} ·{" "}
             <time dateTime={post.createdAt}>{format.relativeTime(createdAt, now)}</time>
@@ -92,7 +98,8 @@ export function PostCard({
             )}
           </p>
         </div>
-        {post.author.newVoice && !post.isOwn && (
+        {isDemo && <DemoBadge className="shrink-0" />}
+        {post.author.newVoice && !post.isOwn && !isDemo && (
           <span className="shrink-0 rounded-full bg-spark px-2.5 py-1 text-xs font-semibold text-spark-foreground">
             {t("newVoice")}
           </span>
@@ -116,6 +123,12 @@ export function PostCard({
         ) : (
           <p className="whitespace-pre-line text-[17px] leading-relaxed">{post.body}</p>
         ))}
+
+      {post.demo?.artSeed && (
+        <div className="relative aspect-[4/5] max-h-[560px] overflow-hidden rounded-[24px] border">
+          <GenerativeArt seed={post.demo.artSeed} />
+        </div>
+      )}
 
       {post.media.length > 0 && (
         <div
@@ -164,7 +177,7 @@ export function PostCard({
           <span className="sr-only">{t("likesCount", { count: optimistic.count })}</span>
         </button>
 
-        {linkToPost ? (
+        {linkToPost && !isDemo ? (
           <Link
             href={postHref}
             className="press flex min-h-11 items-center gap-2 rounded-full px-3 text-[15px] text-muted-foreground hover:text-foreground"
@@ -196,6 +209,16 @@ export function PostCard({
         )}
       </footer>
     </article>
+  )
+}
+
+// Demo authors have no profile page, so their name renders as plain text.
+function MaybeLink({ href, className, children }: { href: string | null; className: string; children: React.ReactNode }) {
+  if (!href) return <span className={className}>{children}</span>
+  return (
+    <Link href={href} className={className}>
+      {children}
+    </Link>
   )
 }
 

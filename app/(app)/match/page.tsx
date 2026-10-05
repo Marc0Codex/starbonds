@@ -1,12 +1,13 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { redirect } from "next/navigation"
-import { getTranslations } from "next-intl/server"
+import { getLocale, getTranslations } from "next-intl/server"
 
 import { MatchDeck } from "@/components/match/match-deck"
 import { ProfileAvatar } from "@/components/profile/profile-avatar"
+import { withDemoCandidates } from "@/lib/demo"
 import { getCandidates, getMatches } from "@/lib/match"
-import { getAllTags, getCurrentProfile } from "@/lib/profile"
+import { getAllTags, getCurrentProfile, getProfileTagIds } from "@/lib/profile"
 import { publicUrl } from "@/lib/storage"
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -18,13 +19,17 @@ export default async function MatchPage() {
   const current = await getCurrentProfile()
   if (!current) redirect("/login")
 
-  const [candidates, matches, tags, t, tNav] = await Promise.all([
+  const [realCandidates, matches, tags, myTagIds, locale, t, tNav] = await Promise.all([
     getCandidates(20),
     getMatches(current.userId),
     getAllTags(),
+    getProfileTagIds(current.userId),
+    getLocale(),
     getTranslations("match"),
     getTranslations("nav"),
   ])
+  // Sample artists appended after real ones (see lib/demo.ts).
+  const candidates = withDemoCandidates(realCandidates, tags, myTagIds, locale)
 
   return (
     <div className="flex flex-col gap-8">

@@ -29,6 +29,13 @@ Las migraciones están en `supabase/migrations/` y se aplican al proyecto remoto
 
 Las RPC principales son `get_match_candidates`, `get_discover_feed`, `get_following_feed`, `start_conversation`, `mark_conversation_read` y `delete_account`.
 
+## Contenido demo
+
+Match y Comunidad muestran artistas y publicaciones de ejemplo, marcados con la etiqueta **Demo**. Viven en `lib/demo.ts`, no en la base de datos, así que los swipes y likes sobre ellos no se guardan y reaparecen al refrescar.
+
+- **Apagar:** `NEXT_PUBLIC_DEMO_MODE=off`
+- **Eliminar:** borrar `lib/demo.ts` y sus usos (`withDemoCandidates` y `withDemoPosts`, más el manejo de `demo` en `match-deck.tsx` y `post-card.tsx`)
+
 ## Diseño
 
 El sistema de diseño está en `design-system/starbonds/MASTER.md` y fue generado con la skill ui-ux-pro-max. Los tokens están en `app/globals.css`.

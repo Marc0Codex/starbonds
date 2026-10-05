@@ -269,6 +269,10 @@
       "generic": "Algo salió mal. Inténtalo de nuevo."
     }
   },
+  "demo": {
+    "badge": "Demo",
+    "hint": "Contenido de ejemplo: vuelve a aparecer al refrescar y no se guarda."
+  },
   "plei": {
     "petLabel": "Plei, tu guía estelar. Tócalo para que te dé un consejo.",
     "intro": "¡Hola! Soy Plei, mi nombre viene de las Pléyades. Te ayudo a encontrar tu constelación de artistas.",

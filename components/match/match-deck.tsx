@@ -8,7 +8,9 @@ import { useRef, useState, useTransition } from "react"
 import { toast } from "sonner"
 
 import { recordSwipe } from "@/app/(app)/match/actions"
+import { GenerativeArt } from "@/components/brand/generative-art"
 import { Star } from "@/components/brand/star"
+import { DemoBadge } from "@/components/demo-badge"
 import { Plei, type PleiMood } from "@/components/plei/plei"
 import { ProfileAvatar } from "@/components/profile/profile-avatar"
 import { buttonVariants } from "@/components/ui/button"
@@ -22,7 +24,7 @@ const SWIPE_THRESHOLD = 110
 const LEAVE_MS = 420
 
 type Drag = { x: number; y: number; startX: number; startY: number; active: boolean; moved: boolean }
-type MatchInfo = { name: string; conversationId: string | null }
+type MatchInfo = { name: string; conversationId: string | null; demo?: boolean }
 
 export function MatchDeck({ candidates, tags }: { candidates: Candidate[]; tags: Tables<"tags">[] }) {
   const t = useTranslations("match")
@@ -67,6 +69,21 @@ export function MatchDeck({ candidates, tags }: { candidates: Candidate[]; tags:
     setPlei(
       direction === "right" ? { mood: "happy", message: tp("liked") } : { mood: "meh", message: tp("passed") }
     )
+
+    // Demo artists (lib/demo.ts): nothing is saved, so they come back on refresh.
+    if (target.demo) {
+      if (direction === "right" && target.demo.likesYou) {
+        setTimeout(() => {
+          setMatch({ name: target.displayName, conversationId: null, demo: true })
+          setPlei({ mood: "celebrate", message: tp("matched") })
+        }, LEAVE_MS)
+      }
+      setTimeout(() => {
+        setIndex((i) => i + 1)
+        setLeaving(null)
+      }, LEAVE_MS)
+      return
+    }
 
     startTransition(async () => {
       const result = await recordSwipe(target.id, direction === "right" ? "like" : "pass")
@@ -222,13 +239,22 @@ export function MatchDeck({ candidates, tags }: { candidates: Candidate[]; tags:
             >
               <Star className="size-9" />
             </button>
-            <Link
-              href={`/u/${current.username}`}
-              aria-label={t("viewProfile", { name: current.displayName })}
-              className="press grid size-16 place-items-center rounded-full border bg-card hover:border-primary"
-            >
-              <User className="size-6" aria-hidden />
-            </Link>
+            {current.demo ? (
+              <span
+                aria-hidden
+                className="grid size-16 place-items-center rounded-full border bg-card opacity-40"
+              >
+                <User className="size-6" />
+              </span>
+            ) : (
+              <Link
+                href={`/u/${current.username}`}
+                aria-label={t("viewProfile", { name: current.displayName })}
+                className="press grid size-16 place-items-center rounded-full border bg-card hover:border-primary"
+              >
+                <User className="size-6" aria-hidden />
+              </Link>
+            )}
           </div>
           <p className="text-sm text-muted-foreground">
             {t("counter", { current: index + 1, total: candidates.length })} · {t("dragHint")}
@@ -254,12 +280,14 @@ export function MatchDeck({ candidates, tags }: { candidates: Candidate[]; tags:
               {t("matchBody", { name: match.name })}
             </p>
             <div className="rise-in flex flex-col gap-3" style={{ "--delay": "0.24s" } as React.CSSProperties}>
-              <Link
-                href={match.conversationId ? `/messages/${match.conversationId}` : "/messages"}
-                className="press flex min-h-13 items-center justify-center rounded-full bg-spark text-base font-semibold text-spark-foreground"
-              >
-                {t("sendMessage")}
-              </Link>
+              {!match.demo && (
+                <Link
+                  href={match.conversationId ? `/messages/${match.conversationId}` : "/messages"}
+                  className="press flex min-h-13 items-center justify-center rounded-full bg-spark text-base font-semibold text-spark-foreground"
+                >
+                  {t("sendMessage")}
+                </Link>
+              )}
               <button
                 type="button"
                 autoFocus
@@ -307,6 +335,7 @@ function CandidateCard({
         <span className="absolute left-4 top-4 rounded-full bg-spark px-3 py-1.5 text-[13px] font-semibold text-spark-foreground">
           {badge}
         </span>
+        {candidate.demo && <DemoBadge className="absolute right-4 top-4" />}
       </div>
       <div className="flex flex-col gap-3 p-5">
         <div className="flex items-center gap-3">
@@ -340,33 +369,5 @@ function CandidateCard({
         </ul>
       </div>
     </article>
-  )
-}
-
-// Flat geometric composition when an artist has no artworks yet (seeded by id).
-function GenerativeArt({ seed }: { seed: string }) {
-  const n = [...seed].reduce((acc, ch) => (acc * 31 + ch.charCodeAt(0)) >>> 0, 7)
-  const palettes = [
-    ["#3b1f6b", "#bfa8ff", "#dfff4f", "#5b2a86"],
-    ["#f1ebf8", "#5b2a86", "#3b1f6b", "#bfa8ff"],
-    ["#dfff4f", "#3b1f6b", "#1a0f2e", "#5b2a86"],
-    ["#16101f", "#bfa8ff", "#5b2a86", "#dfff4f"],
-  ]
-  const [bg, ring, dot, ground] = palettes[n % palettes.length]
-  const left = 14 + (n % 20)
-  const top = 10 + ((n >> 3) % 16)
-
-  return (
-    <div className="absolute inset-0" style={{ background: bg }} aria-hidden>
-      <div
-        className="orbit absolute aspect-square w-[64%] rounded-full border-2 border-dashed"
-        style={{ left: `${left}%`, top: `${top}%`, borderColor: ring }}
-      />
-      <div
-        className="absolute aspect-square w-[30%] rounded-full"
-        style={{ left: `${left + 17}%`, top: `${top + 17}%`, background: dot }}
-      />
-      <div className="absolute bottom-0 left-0 h-[24%] w-full" style={{ background: ground }} />
-    </div>
   )
 }

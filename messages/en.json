@@ -269,6 +269,10 @@
       "generic": "Something went wrong. Please try again."
     }
   },
+  "demo": {
+    "badge": "Demo",
+    "hint": "Sample content: it comes back on refresh and is never saved."
+  },
   "plei": {
     "petLabel": "Plei, your star guide. Tap for a tip.",
     "intro": "Hi! I'm Plei, named after the Pleiades. I'll help you find your constellation of artists.",

@@ -2,12 +2,13 @@ import { ArrowUpRight } from "lucide-react"
 import type { Metadata } from "next"
 import Link from "next/link"
 import { redirect } from "next/navigation"
-import { getTranslations, getNow } from "next-intl/server"
+import { getLocale, getNow, getTranslations } from "next-intl/server"
 
 import { Star } from "@/components/brand/star"
 import { Composer } from "@/components/community/composer"
 import { FeedList } from "@/components/community/feed-list"
 import { buttonVariants } from "@/components/ui/button"
+import { withDemoPosts } from "@/lib/demo"
 import { type FeedTab, getFeed } from "@/lib/posts"
 import { getCurrentProfile } from "@/lib/profile"
 import { publicUrl } from "@/lib/storage"
@@ -30,6 +31,8 @@ export default async function CommunityPage({ searchParams }: PageProps<"/commun
     getTranslations("nav"),
   ])
   const now = (await getNow()).getTime()
+  // Sample posts on the first Discover page (see lib/demo.ts).
+  const visiblePosts = tab === "discover" ? withDemoPosts(posts, await getLocale(), now) : posts
 
   const tabs: { value: FeedTab; label: string }[] = [
     { value: "discover", label: t("tabDiscover") },
@@ -73,8 +76,8 @@ export default async function CommunityPage({ searchParams }: PageProps<"/commun
         }}
       />
 
-      {posts.length > 0 ? (
-        <FeedList key={tab} initialPosts={posts} initialCursor={nextCursor} source={{ kind: "feed", tab }} now={now} />
+      {visiblePosts.length > 0 ? (
+        <FeedList key={tab} initialPosts={visiblePosts} initialCursor={nextCursor} source={{ kind: "feed", tab }} now={now} />
       ) : (
         <div className="relative flex flex-col items-start gap-5 overflow-hidden rounded-[28px] border border-dashed p-8 sm:p-12">
           <Star spin className="absolute -right-12 -top-12 size-48 text-raise" />
