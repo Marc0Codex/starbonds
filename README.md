@@ -29,6 +29,16 @@ Las migraciones están en `supabase/migrations/` y se aplican al proyecto remoto
 
 Las RPC principales son `get_match_candidates`, `get_discover_feed`, `get_following_feed`, `start_conversation`, `mark_conversation_read` y `delete_account`.
 
+## Producción
+
+- **URL:** https://starbonds.vercel.app (proyecto `starbonds` en Vercel, equipo `kosmi-carp`).
+- **Deploy:** cada push a `main` despliega automáticamente.
+- **Variables de entorno:** vienen de la integración de Supabase en Vercel. La app solo usa `NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`. `NEXT_PUBLIC_SITE_URL` es opcional: si no está, se usa el dominio de producción de Vercel.
+- **Supabase Auth → URL Configuration:**
+  - Site URL: `https://starbonds.vercel.app`
+  - Redirect URLs: `https://starbonds.vercel.app/auth/callback` y `http://localhost:3000/auth/callback`
+- **Privacidad:** la política está en `/privacy` (`components/legal/privacy-content.tsx`).
+
 ## Contenido demo
 
 Match, Comunidad y Mensajes muestran artistas, publicaciones y conversaciones de ejemplo, marcados con la etiqueta **Demo**. Viven en `lib/demo.ts`, no en la base de datos, así que los swipes, likes y mensajes sobre ellos no se guardan y todo reaparece al refrescar. Los chats demo responden con mensajes predefinidos.
