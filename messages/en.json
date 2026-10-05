@@ -269,6 +269,49 @@
       "generic": "Something went wrong. Please try again."
     }
   },
+  "plei": {
+    "petLabel": "Plei, your star guide. Tap for a tip.",
+    "intro": "Hi! I'm Plei, named after the Pleiades. I'll help you find your constellation of artists.",
+    "tips": [
+      "Swipe right to connect and left to pass.",
+      "Shared goals weigh more in your matches.",
+      "Add work to your portfolio: it shines on your card.",
+      "Every artist is a star. Together you form constellations.",
+      "The Pleiades are a cluster of young stars. Just like you.",
+      "If you both say yes, a chat opens so you can collaborate."
+    ],
+    "liked": "Great pick! If they pick you too, you'll shine together.",
+    "passed": "No worries, there are plenty more stars.",
+    "matched": "A new constellation! Say hi soon.",
+    "empty": "You've seen everyone for today. Time for a nap… come back tomorrow.",
+    "dragRight": "Yes, yes, yes!",
+    "dragLeft": "Hmm…"
+  },
+  "match": {
+    "subtitle": "Artists who share your",
+    "subtitleAccent": "mediums and goals",
+    "yourMatches": "Your matches",
+    "pass": "Pass",
+    "like": "Connect",
+    "viewProfile": "View {name}'s profile",
+    "shared": "{count, plural, one {# tag in common} other {# tags in common}}",
+    "noShared": "New star",
+    "stampLike": "Connect",
+    "stampPass": "Pass",
+    "counter": "{current} of {total}",
+    "dragHint": "Drag the card or use the buttons.",
+    "emptyTitle": "You've seen everyone",
+    "emptyAccent": "for today",
+    "emptyBody": "Come back tomorrow or add more tags to your profile to discover more artists.",
+    "editTags": "Edit my tags",
+    "refresh": "Search again",
+    "matchTitle": "It's a",
+    "matchAccent": "match.",
+    "matchBody": "You and {name} want to create together. Message them to start collaborating.",
+    "sendMessage": "Send a message",
+    "keepExploring": "Keep exploring",
+    "error": "Your choice couldn't be saved. Please try again."
+  },
   "groups": {
     "title": "Creative",
     "accent": "groups",

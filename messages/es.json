@@ -269,6 +269,49 @@
       "generic": "Algo salió mal. Inténtalo de nuevo."
     }
   },
+  "plei": {
+    "petLabel": "Plei, tu guía estelar. Tócalo para que te dé un consejo.",
+    "intro": "¡Hola! Soy Plei, mi nombre viene de las Pléyades. Te ayudo a encontrar tu constelación de artistas.",
+    "tips": [
+      "Desliza a la derecha para conectar y a la izquierda para pasar.",
+      "Los objetivos en común pesan más en tus matches.",
+      "Sube obras a tu portafolio: brillan en tu tarjeta.",
+      "Cada artista es una estrella. Juntos forman constelaciones.",
+      "Las Pléyades son un cúmulo de estrellas jóvenes. Como tú.",
+      "Si los dos dicen que sí, se abre un chat para colaborar."
+    ],
+    "liked": "¡Buena elección! Si también te elige, brillan juntos.",
+    "passed": "Sin problema, hay muchas estrellas más.",
+    "matched": "¡Una nueva constelación! Escríbele pronto.",
+    "empty": "Ya viste a todos por hoy. Me voy a dormir… vuelve mañana.",
+    "dragRight": "¡Sí, sí, sí!",
+    "dragLeft": "Mmm…"
+  },
+  "match": {
+    "subtitle": "Artistas afines a tus",
+    "subtitleAccent": "técnicas y objetivos",
+    "yourMatches": "Tus matches",
+    "pass": "Pasar",
+    "like": "Conectar",
+    "viewProfile": "Ver perfil de {name}",
+    "shared": "{count, plural, one {# tag en común} other {# tags en común}}",
+    "noShared": "Estrella nueva",
+    "stampLike": "Conectar",
+    "stampPass": "Paso",
+    "counter": "{current} de {total}",
+    "dragHint": "Arrastra la tarjeta o usa los botones.",
+    "emptyTitle": "Viste a todos",
+    "emptyAccent": "por hoy",
+    "emptyBody": "Vuelve mañana o agrega más tags a tu perfil para descubrir más artistas.",
+    "editTags": "Editar mis tags",
+    "refresh": "Buscar de nuevo",
+    "matchTitle": "Es un",
+    "matchAccent": "match.",
+    "matchBody": "Tú y {name} quieren crear juntos. Escríbele para empezar la colaboración.",
+    "sendMessage": "Enviar mensaje",
+    "keepExploring": "Seguir explorando",
+    "error": "No se pudo guardar tu elección. Inténtalo de nuevo."
+  },
   "groups": {
     "title": "Grupos",
     "accent": "creativos",
