@@ -1,13 +1,9 @@
-import type { Metadata } from "next"
-import { getTranslations } from "next-intl/server"
+import { redirect } from "next/navigation"
 
-import { SectionPlaceholder } from "@/components/shell/section-placeholder"
+import { getCurrentProfile } from "@/lib/profile"
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("nav")
-  return { title: t("profile") }
-}
-
-export default function Page() {
-  return <SectionPlaceholder section="profile" />
+export default async function MyProfilePage() {
+  const current = await getCurrentProfile()
+  if (!current) redirect("/login")
+  redirect(`/u/${current.profile.username}`)
 }

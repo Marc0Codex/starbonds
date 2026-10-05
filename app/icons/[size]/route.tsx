@@ -1,5 +1,7 @@
 import { ImageResponse } from "next/og"
 
+import { STAR_PATH } from "@/components/brand/star"
+
 const SIZES = ["192", "512", "maskable-512", "apple-180"] as const
 
 export function generateStaticParams() {
@@ -24,14 +26,12 @@ export async function GET(_request: Request, { params }: RouteContext<"/icons/[s
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(135deg, #e11d48 0%, #fb7185 100%)",
+          background: "#0d0a12",
           borderRadius: maskable || size.startsWith("apple") ? 0 : px * 0.22,
         }}
       >
-        <svg width={glyph} height={glyph} viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" />
-          <path d="M20 3v4" />
-          <path d="M22 5h-4" />
+        <svg width={glyph} height={glyph} viewBox="0 0 32 32">
+          <path d={STAR_PATH} fill="#bfa8ff" />
         </svg>
       </div>
     ),

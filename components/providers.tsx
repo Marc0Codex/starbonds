@@ -12,10 +12,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
   )
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+    // "Noche violeta" is a dark-only identity.
+    <ThemeProvider attribute="class" forcedTheme="dark" disableTransitionOnChange>
       <QueryClientProvider client={queryClient}>
         {children}
-        <Toaster richColors position="top-center" />
+        <Toaster position="top-center" />
       </QueryClientProvider>
     </ThemeProvider>
   )

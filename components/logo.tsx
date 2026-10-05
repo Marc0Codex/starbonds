@@ -1,13 +1,10 @@
-import { Sparkles } from "lucide-react"
-
+import { Star } from "@/components/brand/star"
 import { cn } from "@/lib/utils"
 
-export function Logo({ className }: { className?: string }) {
+export function Logo({ className, spin = true }: { className?: string; spin?: boolean }) {
   return (
-    <span className={cn("inline-flex items-center gap-2 font-heading text-xl font-bold tracking-tight", className)}>
-      <span className="grid size-8 place-items-center rounded-lg bg-primary text-primary-foreground" aria-hidden>
-        <Sparkles className="size-4" />
-      </span>
+    <span className={cn("inline-flex items-center gap-2.5 font-heading text-xl font-extrabold tracking-tight", className)}>
+      <Star spin={spin} className="size-7 text-primary" />
       STARBONDS
     </span>
   )
