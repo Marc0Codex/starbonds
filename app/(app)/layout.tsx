@@ -3,6 +3,7 @@ import { redirect } from "next/navigation"
 
 import { UnreadListener } from "@/components/chat/unread-listener"
 import { BottomNav, MobileHeader, Sidebar } from "@/components/shell/app-nav"
+import { getUnreadNotificationsCount } from "@/lib/activity"
 import { getUnreadCount } from "@/lib/messages"
 import { getCurrentProfile } from "@/lib/profile"
 import { publicUrl } from "@/lib/storage"
@@ -13,7 +14,11 @@ export default async function AppLayout({ children }: LayoutProps<"/">) {
   if (!current.profile.onboarded) redirect("/onboarding")
 
   const { profile } = current
-  const [t, unread] = await Promise.all([getTranslations("nav"), getUnreadCount(current.userId)])
+  const [t, unread, activity] = await Promise.all([
+    getTranslations("nav"),
+    getUnreadCount(current.userId),
+    getUnreadNotificationsCount(),
+  ])
   const user = {
     displayName: profile.display_name,
     username: profile.username,
@@ -29,9 +34,9 @@ export default async function AppLayout({ children }: LayoutProps<"/">) {
         {t("skipToContent")}
       </a>
       <UnreadListener meId={current.userId} />
-      <Sidebar user={user} unread={unread} />
+      <Sidebar user={user} unread={unread} activity={activity} />
       <div className="flex min-w-0 flex-1 flex-col">
-        <MobileHeader />
+        <MobileHeader activity={activity} />
         <main id="main" className="mx-auto w-full max-w-4xl flex-1 px-4 pb-32 pt-6 md:px-10 md:pb-12 md:pt-12">
           {children}
         </main>

@@ -105,14 +105,51 @@
     "messagesDescription": "Tus conversaciones con matches y compradores.",
     "activityDescription": "Likes, comentarios, nuevos seguidores y matches.",
     "profileDescription": "Tu portafolio, publicaciones y obras a la venta.",
-    "settingsDescription": "Cuenta, idioma y privacidad."
+    "settingsDescription": "Perfil, idioma, usuarios bloqueados y tu cuenta."
   },
   "settings": {
     "language": "Idioma",
     "languageDescription": "Elige el idioma de la aplicación.",
     "profile": "Perfil",
     "profileDescription": "Nombre, biografía, avatar y tags.",
-    "editProfile": "Editar perfil"
+    "editProfile": "Editar perfil",
+    "blockedTitle": "Usuarios bloqueados",
+    "blockedEmpty": "No has bloqueado a nadie.",
+    "dangerTitle": "Zona de peligro",
+    "deleteTitle": "Eliminar mi cuenta",
+    "deleteBody": "Se borrarán tu perfil, obras, publicaciones, ventas, mensajes y archivos. No se puede deshacer.",
+    "deleteConfirmLabel": "Escribe tu usuario ({username}) para confirmar",
+    "deleteButton": "Eliminar mi cuenta para siempre",
+    "deleteMismatch": "El usuario no coincide.",
+    "deleteError": "No se pudo eliminar la cuenta. Inténtalo de nuevo."
+  },
+  "activity": {
+    "like": "le gustó tu publicación",
+    "comment": "comentó tu publicación",
+    "follow": "empezó a seguirte",
+    "match": "hizo match contigo",
+    "group_join": "se unió a {group}",
+    "groupFallback": "tu grupo",
+    "someone": "Alguien",
+    "new": "Nuevo",
+    "emptyTitle": "Todo",
+    "emptyAccent": "en calma",
+    "emptyBody": "Aquí verás likes, comentarios, nuevos seguidores, matches y quién se une a tus grupos."
+  },
+  "safety": {
+    "menu": "Más opciones",
+    "block": "Bloquear",
+    "unblock": "Desbloquear",
+    "blocked": "Bloqueaste a {name}",
+    "unblocked": "Desbloqueaste a {name}",
+    "report": "Reportar",
+    "reportTitle": "Reportar a {name}",
+    "reportPlaceholder": "Cuéntanos qué pasó…",
+    "reportSend": "Enviar reporte",
+    "reportSent": "Gracias. Revisaremos tu reporte.",
+    "cancel": "Cancelar",
+    "blockedNotice": "Bloqueaste a este artista. No lo verás en Match ni en Descubrir, y no podrán escribirse.",
+    "error": "Algo salió mal. Inténtalo de nuevo."
   },
   "tags": {
     "medium": "Técnicas",

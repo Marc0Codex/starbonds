@@ -105,14 +105,51 @@
     "messagesDescription": "Your conversations with matches and buyers.",
     "activityDescription": "Likes, comments, new followers, and matches.",
     "profileDescription": "Your portfolio, posts, and works for sale.",
-    "settingsDescription": "Account, language, and privacy."
+    "settingsDescription": "Profile, language, blocked users, and your account."
   },
   "settings": {
     "language": "Language",
     "languageDescription": "Choose the app language.",
     "profile": "Profile",
     "profileDescription": "Name, bio, avatar, and tags.",
-    "editProfile": "Edit profile"
+    "editProfile": "Edit profile",
+    "blockedTitle": "Blocked users",
+    "blockedEmpty": "You haven't blocked anyone.",
+    "dangerTitle": "Danger zone",
+    "deleteTitle": "Delete my account",
+    "deleteBody": "Your profile, artworks, posts, listings, messages, and files will be deleted. This can't be undone.",
+    "deleteConfirmLabel": "Type your username ({username}) to confirm",
+    "deleteButton": "Delete my account forever",
+    "deleteMismatch": "The username doesn't match.",
+    "deleteError": "The account couldn't be deleted. Please try again."
+  },
+  "activity": {
+    "like": "liked your post",
+    "comment": "commented on your post",
+    "follow": "started following you",
+    "match": "matched with you",
+    "group_join": "joined {group}",
+    "groupFallback": "your group",
+    "someone": "Someone",
+    "new": "New",
+    "emptyTitle": "All",
+    "emptyAccent": "quiet",
+    "emptyBody": "Likes, comments, new followers, matches, and group joins will show up here."
+  },
+  "safety": {
+    "menu": "More options",
+    "block": "Block",
+    "unblock": "Unblock",
+    "blocked": "You blocked {name}",
+    "unblocked": "You unblocked {name}",
+    "report": "Report",
+    "reportTitle": "Report {name}",
+    "reportPlaceholder": "Tell us what happened…",
+    "reportSend": "Send report",
+    "reportSent": "Thanks. We'll review your report.",
+    "cancel": "Cancel",
+    "blockedNotice": "You blocked this artist. You won't see them in Match or Discover, and you can't message each other.",
+    "error": "Something went wrong. Please try again."
   },
   "tags": {
     "medium": "Mediums",

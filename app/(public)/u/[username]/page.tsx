@@ -9,6 +9,8 @@ import { PostCard } from "@/components/community/post-card"
 import { ListingCard } from "@/components/market/listing-card"
 import { ArtworkGrid } from "@/components/profile/artwork-grid"
 import { FollowButton } from "@/components/profile/follow-button"
+import { SafetyMenu } from "@/components/profile/safety-menu"
+import { isBlocking } from "@/lib/activity"
 import { ProfileAvatar } from "@/components/profile/profile-avatar"
 import { buttonVariants } from "@/components/ui/button"
 import { getSellerListings } from "@/lib/listings"
@@ -41,12 +43,14 @@ export default async function ProfilePage({ params }: PageProps<"/u/[username]">
 
   const { profile, tags } = data
   const isOwn = current?.userId === profile.id
-  const [artworks, posts, following, listings, tm] = await Promise.all([
+  const [artworks, posts, following, listings, tm, blocking, tsafety] = await Promise.all([
     getArtworksByOwner(profile.id),
     getUserPosts(profile.id, current?.userId ?? null),
     current && !isOwn ? isFollowing(current.userId, profile.id) : Promise.resolve(false),
     getSellerListings(profile.id, isOwn),
     getTranslations("market"),
+    current && !isOwn ? isBlocking(current.userId, profile.id) : Promise.resolve(false),
+    getTranslations("safety"),
   ])
   const grouped = groupTags(tags)
   const now = (await getNow()).getTime()
@@ -94,11 +98,16 @@ export default async function ProfilePage({ params }: PageProps<"/u/[username]">
             </div>
           )}
           {!isOwn && current && (
-            <div className="fade-in" style={{ "--delay": "0.4s" } as React.CSSProperties}>
-              <FollowButton targetId={profile.id} initialFollowing={following} />
+            <div className="fade-in flex items-start gap-2" style={{ "--delay": "0.4s" } as React.CSSProperties}>
+              {!blocking && <FollowButton targetId={profile.id} initialFollowing={following} />}
+              <SafetyMenu targetId={profile.id} name={profile.display_name} initialBlocked={blocking} />
             </div>
           )}
         </div>
+
+        {blocking && (
+          <p className="rounded-[20px] border border-destructive/40 p-4 text-muted-foreground">{tsafety("blockedNotice")}</p>
+        )}
 
         <div
           className="fade-in grid gap-8 border-t pt-8 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]"

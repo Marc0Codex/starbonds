@@ -1,9 +1,14 @@
 import { ArrowRight } from "lucide-react"
 import type { Metadata } from "next"
 import Link from "next/link"
+import { redirect } from "next/navigation"
 import { getTranslations } from "next-intl/server"
 
+import { BlockedList } from "@/components/settings/blocked-list"
+import { DeleteAccount } from "@/components/settings/delete-account"
 import { Preferences } from "@/components/settings/preferences"
+import { getBlockedUsers } from "@/lib/activity"
+import { getCurrentProfile } from "@/lib/profile"
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("nav")
@@ -11,10 +16,13 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function SettingsPage() {
-  const [t, ts, tset] = await Promise.all([
+  const current = await getCurrentProfile()
+  if (!current) redirect("/login")
+  const [t, ts, tset, blocked] = await Promise.all([
     getTranslations("nav"),
     getTranslations("sections"),
     getTranslations("settings"),
+    getBlockedUsers(),
   ])
 
   return (
@@ -39,6 +47,14 @@ export default async function SettingsPage() {
       <section className="rise-in rounded-[24px] border bg-card p-6" style={{ "--delay": "0.1s" } as React.CSSProperties}>
         <Preferences />
       </section>
+
+      <div className="rise-in rounded-[24px] border bg-card p-6" style={{ "--delay": "0.15s" } as React.CSSProperties}>
+        <BlockedList users={blocked} />
+      </div>
+
+      <div className="rise-in" style={{ "--delay": "0.2s" } as React.CSSProperties}>
+        <DeleteAccount username={current.profile.username} />
+      </div>
     </div>
   )
 }

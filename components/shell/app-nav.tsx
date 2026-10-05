@@ -28,7 +28,8 @@ function UnreadBadge({ count, className }: { count: number; className?: string }
   )
 }
 
-export function Sidebar({ user, unread = 0 }: { user: ShellUser; unread?: number }) {
+export function Sidebar({ user, unread = 0, activity = 0 }: { user: ShellUser; unread?: number; activity?: number }) {
+  const badges: Partial<Record<string, number>> = { messages: unread, activity }
   const t = useTranslations("nav")
   const pathname = usePathname()
 
@@ -52,8 +53,8 @@ export function Sidebar({ user, unread = 0 }: { user: ShellUser; unread?: number
             >
               <Icon className={cn("size-5", active && "text-primary")} />
               {t(key)}
-              {key === "messages" && unread > 0 ? (
-                <UnreadBadge count={unread} className="ml-auto" />
+              {(badges[key] ?? 0) > 0 ? (
+                <UnreadBadge count={badges[key] ?? 0} className="ml-auto" />
               ) : (
                 active && <span className="ml-auto size-1.5 rounded-full bg-spark" aria-hidden />
               )}
@@ -82,7 +83,7 @@ export function Sidebar({ user, unread = 0 }: { user: ShellUser; unread?: number
   )
 }
 
-export function MobileHeader() {
+export function MobileHeader({ activity = 0 }: { activity?: number }) {
   const t = useTranslations("nav")
   const pathname = usePathname()
   return (
@@ -105,7 +106,10 @@ export function MobileHeader() {
               isActive(pathname, href) && "text-primary"
             )}
           >
-            <Icon className="size-[22px]" aria-hidden />
+            <span className="relative">
+              <Icon className="size-[22px]" aria-hidden />
+              {href === "/activity" && <UnreadBadge count={activity} className="absolute -right-3 -top-2" />}
+            </span>
           </Link>
         ))}
       </div>
