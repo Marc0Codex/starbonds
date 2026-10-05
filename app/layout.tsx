@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from "next-intl"
 import { getLocale, getTranslations } from "next-intl/server"
 
 import { Providers } from "@/components/providers"
+import { siteUrl } from "@/lib/site"
 import "./globals.css"
 
 const syne = Syne({ variable: "--font-syne", subsets: ["latin"], display: "swap" })
@@ -22,7 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: { default: t("title"), template: "%s · STARBONDS" },
     description: t("description"),
     applicationName: "STARBONDS",
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+    metadataBase: new URL(siteUrl()),
     appleWebApp: { capable: true, title: "STARBONDS", statusBarStyle: "black-translucent" },
     icons: { icon: "/icons/192", apple: "/icons/apple-180" },
     formatDetection: { telephone: false },
