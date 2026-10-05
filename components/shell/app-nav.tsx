@@ -14,7 +14,21 @@ import { cn } from "@/lib/utils"
 
 export type ShellUser = { displayName: string; username: string; avatarUrl: string | null }
 
-export function Sidebar({ user }: { user: ShellUser }) {
+function UnreadBadge({ count, className }: { count: number; className?: string }) {
+  if (count <= 0) return null
+  return (
+    <span
+      className={cn(
+        "pop grid min-w-5 place-items-center rounded-full bg-spark px-1.5 text-[11px] font-bold leading-5 text-spark-foreground",
+        className
+      )}
+    >
+      {count > 9 ? "9+" : count}
+    </span>
+  )
+}
+
+export function Sidebar({ user, unread = 0 }: { user: ShellUser; unread?: number }) {
   const t = useTranslations("nav")
   const pathname = usePathname()
 
@@ -38,7 +52,11 @@ export function Sidebar({ user }: { user: ShellUser }) {
             >
               <Icon className={cn("size-5", active && "text-primary")} />
               {t(key)}
-              {active && <span className="ml-auto size-1.5 rounded-full bg-spark" aria-hidden />}
+              {key === "messages" && unread > 0 ? (
+                <UnreadBadge count={unread} className="ml-auto" />
+              ) : (
+                active && <span className="ml-auto size-1.5 rounded-full bg-spark" aria-hidden />
+              )}
             </Link>
           )
         })}
@@ -95,7 +113,7 @@ export function MobileHeader() {
   )
 }
 
-export function BottomNav() {
+export function BottomNav({ unread = 0 }: { unread?: number }) {
   const t = useTranslations("nav")
   const pathname = usePathname()
 
@@ -117,7 +135,10 @@ export function BottomNav() {
                   active ? "bg-plum font-semibold text-foreground" : "text-muted-foreground hover:text-foreground"
                 )}
               >
-                <Icon className="size-[22px]" />
+                <span className="relative">
+                  <Icon className="size-[22px]" />
+                  {key === "messages" && <UnreadBadge count={unread} className="absolute -right-3 -top-2" />}
+                </span>
                 {t(key)}
               </Link>
             </li>

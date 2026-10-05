@@ -269,6 +269,28 @@
       "generic": "Something went wrong. Please try again."
     }
   },
+  "chat": {
+    "emptyTitle": "Your inbox is",
+    "emptyAccent": "quiet",
+    "emptyBody": "When you match with someone or contact a seller, the conversation will show up here.",
+    "goMatch": "Go to Match",
+    "you": "You:",
+    "noMessagesYet": "No messages yet",
+    "startTitle": "A new",
+    "startAccent": "constellation",
+    "startBody": "You can talk now. Send the first message and pitch an idea.",
+    "inputLabel": "Write a message",
+    "placeholder": "Write a message…",
+    "send": "Send",
+    "sendHint": "Enter to send · Shift + Enter for a new line",
+    "loadOlder": "Load earlier messages",
+    "back": "Back to messages",
+    "viewProfile": "View profile",
+    "unread": "Unread",
+    "failed": "Not sent. Tap to retry.",
+    "sending": "Sending…",
+    "error": "The conversation couldn't be loaded."
+  },
   "demo": {
     "badge": "Demo",
     "hint": "Sample content: it comes back on refresh and is never saved."
