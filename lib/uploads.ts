@@ -3,6 +3,7 @@ export const AVATAR_MAX_BYTES = 2 * 1024 * 1024
 export const ARTWORK_MAX_BYTES = 15 * 1024 * 1024
 export const ARTWORK_MAX_IMAGES = 10
 export const POST_MAX_IMAGES = 4
+export const LISTING_MAX_IMAGES = 6
 
 export function extensionFor(file: File) {
   const fromName = file.name.split(".").pop()?.toLowerCase()

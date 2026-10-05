@@ -32,6 +32,7 @@ export default async function ConversationPage({ params }: PageProps<"/messages/
       conversationId={id}
       meId={current.userId}
       other={conversation.other}
+      listing={conversation.listing}
       initialMessages={messages}
     />
   )

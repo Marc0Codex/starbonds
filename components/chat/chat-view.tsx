@@ -24,14 +24,17 @@ export function ChatView({
   conversationId,
   meId,
   other,
+  listing = null,
   initialMessages,
 }: {
   conversationId: string
   meId: string
   other: Other
+  listing?: { id: string; title: string } | null
   initialMessages: ChatMessage[]
 }) {
   const t = useTranslations("chat")
+  const tm = useTranslations("market")
   const router = useRouter()
   const inputId = useId()
   const supabase = useMemo(() => createClient(), [])
@@ -162,6 +165,15 @@ export function ChatView({
             <span className="block truncate text-sm text-muted-foreground">@{other.username}</span>
           </span>
         </Link>
+        {listing && (
+          <Link
+            href={`/listing/${listing.id}`}
+            className="ml-auto hidden max-w-[45%] items-center gap-2 truncate rounded-full border border-grape bg-plum px-4 py-2 text-sm hover:border-primary sm:flex"
+          >
+            <span className="serif-accent text-primary">{tm("about")}</span>
+            <span className="truncate">{listing.title}</span>
+          </Link>
+        )}
       </header>
 
       <div

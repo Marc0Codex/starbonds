@@ -69,10 +69,15 @@ export async function listConversations(userId: string): Promise<ConversationSum
 
 export async function getConversation(id: string, userId: string) {
   const supabase = await createClient()
-  const { data } = await supabase.from("conversations").select(`id, user_a, user_b, ${PEOPLE}`).eq("id", id).maybeSingle()
+  const { data } = await supabase
+    .from("conversations")
+    .select(`id, user_a, user_b, ${PEOPLE}, listing:listings!conversations_listing_id_fkey(id, title)`)
+    .eq("id", id)
+    .maybeSingle()
   if (!data) return null
   const other = person(data.user_a === userId ? data.b : data.a)
-  return other ? { id: data.id, other } : null
+  // The listing this chat started from (marketplace "contact the artist").
+  return other ? { id: data.id, other, listing: data.listing } : null
 }
 
 export async function getMessages(conversationId: string): Promise<ChatMessage[]> {

@@ -6,10 +6,12 @@ import { getLocale, getTranslations, getNow } from "next-intl/server"
 
 import { Star } from "@/components/brand/star"
 import { PostCard } from "@/components/community/post-card"
+import { ListingCard } from "@/components/market/listing-card"
 import { ArtworkGrid } from "@/components/profile/artwork-grid"
 import { FollowButton } from "@/components/profile/follow-button"
 import { ProfileAvatar } from "@/components/profile/profile-avatar"
 import { buttonVariants } from "@/components/ui/button"
+import { getSellerListings } from "@/lib/listings"
 import { getUserPosts, isFollowing } from "@/lib/posts"
 import { getArtworksByOwner, getCurrentProfile, getProfileByUsername } from "@/lib/profile"
 import { publicUrl } from "@/lib/storage"
@@ -39,10 +41,12 @@ export default async function ProfilePage({ params }: PageProps<"/u/[username]">
 
   const { profile, tags } = data
   const isOwn = current?.userId === profile.id
-  const [artworks, posts, following] = await Promise.all([
+  const [artworks, posts, following, listings, tm] = await Promise.all([
     getArtworksByOwner(profile.id),
     getUserPosts(profile.id, current?.userId ?? null),
     current && !isOwn ? isFollowing(current.userId, profile.id) : Promise.resolve(false),
+    getSellerListings(profile.id, isOwn),
+    getTranslations("market"),
   ])
   const grouped = groupTags(tags)
   const now = (await getNow()).getTime()
@@ -183,6 +187,21 @@ export default async function ProfilePage({ params }: PageProps<"/u/[username]">
           <p className="text-lg text-muted-foreground">{t("emptyOther")}</p>
         )}
       </section>
+
+      {listings.length > 0 && (
+        <section className="flex flex-col gap-8" aria-labelledby="sale-title">
+          <h2 id="sale-title" className="border-b pb-4 text-3xl font-extrabold sm:text-4xl">
+            {tm("forSale")}
+          </h2>
+          <ul className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3">
+            {listings.map((listing, i) => (
+              <li key={listing.id}>
+                <ListingCard listing={listing} index={i} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {posts.length > 0 && (
         <section className="flex flex-col gap-8" aria-labelledby="posts-title">
