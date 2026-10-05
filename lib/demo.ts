@@ -1,16 +1,18 @@
 /**
- * DEMO CONTENT — permanent sample artists (Match) and posts (Community).
+ * DEMO CONTENT — permanent sample artists (Match), posts (Community) and
+ * conversations (Messages).
  *
- * Lives only in code (nothing in the database): swipes and likes on demo items are
- * local, so everything reappears on every refresh.
+ * Lives only in code (nothing in the database): swipes, likes and chat messages on
+ * demo items are local, so everything reappears on every refresh.
  *
  * To turn it off: set NEXT_PUBLIC_DEMO_MODE=off.
- * To remove it for good: delete this file and its two call sites
- * (`withDemoCandidates` in app/(app)/match/page.tsx, `withDemoPosts` in app/(app)/community/page.tsx),
- * then the `demo` handling in components/match/match-deck.tsx and
- * components/community/post-card.tsx (search for "demo").
+ * To remove it for good: delete this file and every import of "@/lib/demo"
+ * (match page, community page, messages pages), then the `demo` branches in
+ * components/match/match-deck.tsx, components/community/post-card.tsx and
+ * components/chat/chat-view.tsx (search for "demo"), plus components/demo-badge.tsx.
  */
 import type { Candidate } from "@/lib/match"
+import type { ChatMessage, ConversationSummary } from "@/lib/messages"
 import type { FeedPost } from "@/lib/posts"
 import type { Tables } from "@/types/database"
 
@@ -215,4 +217,110 @@ export function withDemoPosts(posts: FeedPost[], locale: string, now: number): F
     }
   })
   return [...posts, ...demo]
+}
+
+// ---------- Messages ----------
+
+type DemoConversation = {
+  id: string
+  artist: string
+  messages: { mine: boolean; body: Localized; minutesAgo: number }[]
+  replies: Localized[]
+}
+
+const CONVERSATIONS: DemoConversation[] = [
+  {
+    id: "demo-chat-luna",
+    artist: "demo-luna",
+    messages: [
+      { mine: false, minutesAgo: 95, body: { es: "¡Hola! Vi que hicimos match 🌙", en: "Hi! I saw we matched 🌙" } },
+      {
+        mine: false,
+        minutesAgo: 94,
+        body: {
+          es: "Estoy armando una expo audiovisual y me encantaría que tu música acompañe mis pinturas.",
+          en: "I'm putting together an audiovisual show and I'd love your music to go with my paintings.",
+        },
+      },
+      { mine: true, minutesAgo: 60, body: { es: "¡Me encanta la idea! ¿Para cuándo sería?", en: "Love the idea! When would it be?" } },
+      {
+        mine: false,
+        minutesAgo: 12,
+        body: {
+          es: "Pensaba en noviembre. ¿Hacemos una llamada esta semana para planearlo?",
+          en: "I was thinking November. Want to hop on a call this week to plan it?",
+        },
+      },
+    ],
+    replies: [
+      { es: "¡Perfecto! Te mando unas referencias por aquí ✨", en: "Perfect! I'll send you some references here ✨" },
+      { es: "Me encanta, esto va a quedar increíble.", en: "Love it, this is going to look amazing." },
+      { es: "Anotado. ¡Hablamos pronto!", en: "Noted. Talk soon!" },
+    ],
+  },
+  {
+    id: "demo-chat-mateo",
+    artist: "demo-mateo",
+    messages: [
+      {
+        mine: false,
+        minutesAgo: 60 * 26,
+        body: {
+          es: "Oye, ¿te interesaría hacer la portada del próximo disco de mi banda? Yo pongo la foto.",
+          en: "Hey, would you like to design the cover for my band's next record? I'll shoot the photo.",
+        },
+      },
+      { mine: true, minutesAgo: 60 * 25, body: { es: "¡Claro! Mándame la foto y lo vemos.", en: "Sure! Send me the photo and we'll see." } },
+    ],
+    replies: [
+      { es: "¡Genial! Te la paso hoy en la noche 📸", en: "Great! I'll send it tonight 📸" },
+      { es: "Gracias, la banda va a estar feliz.", en: "Thanks, the band will be stoked." },
+    ],
+  },
+]
+
+export const DEMO_CONVERSATION_PREFIX = "demo-chat-"
+
+function artistById(id: string) {
+  return ARTISTS.find((a) => a.id === id)!
+}
+
+// Demo chats go after the real ones in the inbox.
+export function withDemoConversations(
+  conversations: ConversationSummary[],
+  locale: string,
+  now: number
+): ConversationSummary[] {
+  if (!DEMO_MODE) return conversations
+  const demo: ConversationSummary[] = CONVERSATIONS.map((c) => {
+    const artist = artistById(c.artist)
+    const last = c.messages[c.messages.length - 1]
+    return {
+      id: c.id,
+      other: { id: artist.id, username: artist.username, displayName: artist.displayName, avatarPath: null },
+      lastMessage: { body: pick(last.body, locale), fromMe: last.mine, createdAt: new Date(now - last.minutesAgo * 60_000).toISOString() },
+      unread: false,
+      updatedAt: new Date(now - last.minutesAgo * 60_000).toISOString(),
+      demo: true,
+    }
+  })
+  return [...conversations, ...demo]
+}
+
+export function getDemoConversation(id: string, meId: string, locale: string, now: number) {
+  if (!DEMO_MODE) return null
+  const c = CONVERSATIONS.find((conv) => conv.id === id)
+  if (!c) return null
+  const artist = artistById(c.artist)
+  const messages: ChatMessage[] = c.messages.map((m, i) => ({
+    id: -1000 - i,
+    senderId: m.mine ? meId : artist.id,
+    body: pick(m.body, locale),
+    createdAt: new Date(now - m.minutesAgo * 60_000).toISOString(),
+  }))
+  return {
+    other: { id: artist.id, username: artist.username, displayName: artist.displayName, avatarPath: null },
+    messages,
+    replies: c.replies.map((r) => pick(r, locale)),
+  }
 }

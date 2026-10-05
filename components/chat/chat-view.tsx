@@ -8,6 +8,7 @@ import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useSta
 
 import { LocalTime } from "@/components/chat/local-time"
 import { Star } from "@/components/brand/star"
+import { DemoBadge } from "@/components/demo-badge"
 import { ProfileAvatar } from "@/components/profile/profile-avatar"
 import type { ChatMessage } from "@/lib/messages"
 import { publicUrl } from "@/lib/storage"
@@ -26,12 +27,15 @@ export function ChatView({
   other,
   listing = null,
   initialMessages,
+  demo,
 }: {
   conversationId: string
   meId: string
   other: Other
   listing?: { id: string; title: string } | null
   initialMessages: ChatMessage[]
+  /** Sample conversation (lib/demo.ts): local only, with canned replies. */
+  demo?: { replies: string[] }
 }) {
   const t = useTranslations("chat")
   const tm = useTranslations("market")
@@ -44,6 +48,8 @@ export function ChatView({
   const [draft, setDraft] = useState("")
   const scrollRef = useRef<HTMLDivElement>(null)
   const stickToBottom = useRef(true)
+  const [typing, setTyping] = useState(false)
+  const replyIndex = useRef(0)
 
   // Mark as read, then refresh server data so the nav unread badge updates.
   const markRead = useCallback(() => {
@@ -52,6 +58,7 @@ export function ChatView({
 
   // Live messages for this conversation (Realtime respects RLS).
   useEffect(() => {
+    if (demo) return
     let active = true
     markRead()
     const channel = supabase.channel(`conversation:${conversationId}`)
@@ -78,13 +85,13 @@ export function ChatView({
       active = false
       void supabase.removeChannel(channel)
     }
-  }, [supabase, conversationId, meId, markRead])
+  }, [supabase, conversationId, meId, markRead, demo])
 
   // Keep the view pinned to the newest message unless the user scrolled up.
   useLayoutEffect(() => {
     const el = scrollRef.current
     if (el && stickToBottom.current) el.scrollTop = el.scrollHeight
-  }, [messages])
+  }, [messages, typing])
 
   function onScroll() {
     const el = scrollRef.current
@@ -138,8 +145,23 @@ export function ChatView({
     if (!body) return
     const tempId = -Date.now()
     stickToBottom.current = true
-    setMessages((prev) => [...prev, { id: tempId, senderId: meId, body, createdAt: new Date().toISOString(), status: "sending" }])
     setDraft("")
+
+    // Demo chat: keep the message locally and answer with a canned reply.
+    if (demo) {
+      setMessages((prev) => [...prev, { id: tempId, senderId: meId, body, createdAt: new Date().toISOString() }])
+      if (!demo.replies.length) return
+      setTimeout(() => setTyping(true), 500)
+      setTimeout(() => {
+        const reply = demo.replies[replyIndex.current % demo.replies.length]
+        replyIndex.current += 1
+        setTyping(false)
+        setMessages((prev) => [...prev, { id: -Date.now(), senderId: other.id, body: reply, createdAt: new Date().toISOString() }])
+      }, 1900)
+      return
+    }
+
+    setMessages((prev) => [...prev, { id: tempId, senderId: meId, body, createdAt: new Date().toISOString(), status: "sending" }])
     void deliver(tempId, body)
   }
 
@@ -158,13 +180,24 @@ export function ChatView({
         >
           <ArrowLeft className="size-5" aria-hidden />
         </Link>
-        <Link href={`/u/${other.username}`} className="group flex min-w-0 items-center gap-3" title={t("viewProfile")}>
-          <ProfileAvatar name={other.displayName} src={publicUrl("avatars", other.avatarPath)} className="size-11" />
-          <span className="min-w-0">
-            <span className="block truncate font-heading text-lg font-bold group-hover:text-primary">{other.displayName}</span>
-            <span className="block truncate text-sm text-muted-foreground">@{other.username}</span>
-          </span>
-        </Link>
+        {demo ? (
+          <div className="flex min-w-0 items-center gap-3">
+            <ProfileAvatar name={other.displayName} src={null} className="size-11" />
+            <span className="min-w-0">
+              <span className="block truncate font-heading text-lg font-bold">{other.displayName}</span>
+              <span className="block truncate text-sm text-muted-foreground">@{other.username}</span>
+            </span>
+            <DemoBadge className="shrink-0" />
+          </div>
+        ) : (
+          <Link href={`/u/${other.username}`} className="group flex min-w-0 items-center gap-3" title={t("viewProfile")}>
+            <ProfileAvatar name={other.displayName} src={publicUrl("avatars", other.avatarPath)} className="size-11" />
+            <span className="min-w-0">
+              <span className="block truncate font-heading text-lg font-bold group-hover:text-primary">{other.displayName}</span>
+              <span className="block truncate text-sm text-muted-foreground">@{other.username}</span>
+            </span>
+          </Link>
+        )}
         {listing && (
           <Link
             href={`/listing/${listing.id}`}
@@ -243,6 +276,18 @@ export function ChatView({
             </div>
           )
         })}
+
+        {typing && (
+          <div className="rise-in flex items-center gap-1.5 self-start rounded-[22px] rounded-bl-md border bg-card px-4 py-3.5" aria-label="…">
+            {[0, 1, 2].map((i) => (
+              <span
+                key={i}
+                className="pulse-dot size-2 rounded-full bg-primary"
+                style={{ animationDelay: `${i * 160}ms` }}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       <form

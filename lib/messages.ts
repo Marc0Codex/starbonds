@@ -14,6 +14,8 @@ export type ConversationSummary = {
   lastMessage: { body: string; fromMe: boolean; createdAt: string } | null
   unread: boolean
   updatedAt: string
+  /** Sample conversation from lib/demo.ts (local only). */
+  demo?: boolean
 }
 
 const PEOPLE =

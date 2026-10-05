@@ -1,12 +1,14 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { redirect } from "next/navigation"
-import { getTranslations } from "next-intl/server"
+import { getLocale, getNow, getTranslations } from "next-intl/server"
 
 import { LocalTime } from "@/components/chat/local-time"
+import { DemoBadge } from "@/components/demo-badge"
 import { Plei } from "@/components/plei/plei"
 import { ProfileAvatar } from "@/components/profile/profile-avatar"
 import { buttonVariants } from "@/components/ui/button"
+import { withDemoConversations } from "@/lib/demo"
 import { listConversations } from "@/lib/messages"
 import { getCurrentProfile } from "@/lib/profile"
 import { publicUrl } from "@/lib/storage"
@@ -21,11 +23,15 @@ export default async function MessagesPage() {
   const current = await getCurrentProfile()
   if (!current) redirect("/login")
 
-  const [conversations, t, tNav] = await Promise.all([
+  const [realConversations, t, tNav, locale, now] = await Promise.all([
     listConversations(current.userId),
     getTranslations("chat"),
     getTranslations("nav"),
+    getLocale(),
+    getNow(),
   ])
+  // Sample chats after the real ones (see lib/demo.ts).
+  const conversations = withDemoConversations(realConversations, locale, now.getTime())
 
   return (
     <div className="flex flex-col gap-8">
@@ -57,8 +63,11 @@ export default async function MessagesPage() {
                 />
                 <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                   <span className="flex items-baseline justify-between gap-3">
-                    <span className={cn("truncate font-heading text-lg", c.unread ? "font-extrabold" : "font-bold")}>
-                      {c.other.displayName}
+                    <span className="flex min-w-0 items-center gap-2">
+                      <span className={cn("truncate font-heading text-lg", c.unread ? "font-extrabold" : "font-bold")}>
+                        {c.other.displayName}
+                      </span>
+                      {c.demo && <DemoBadge className="shrink-0" />}
                     </span>
                     <LocalTime iso={c.updatedAt} withDate className="shrink-0 text-xs text-muted-foreground" />
                   </span>

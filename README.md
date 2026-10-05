@@ -31,10 +31,10 @@ Las RPC principales son `get_match_candidates`, `get_discover_feed`, `get_follow
 
 ## Contenido demo
 
-Match y Comunidad muestran artistas y publicaciones de ejemplo, marcados con la etiqueta **Demo**. Viven en `lib/demo.ts`, no en la base de datos, así que los swipes y likes sobre ellos no se guardan y reaparecen al refrescar.
+Match, Comunidad y Mensajes muestran artistas, publicaciones y conversaciones de ejemplo, marcados con la etiqueta **Demo**. Viven en `lib/demo.ts`, no en la base de datos, así que los swipes, likes y mensajes sobre ellos no se guardan y todo reaparece al refrescar. Los chats demo responden con mensajes predefinidos.
 
 - **Apagar:** `NEXT_PUBLIC_DEMO_MODE=off`
-- **Eliminar:** borrar `lib/demo.ts` y sus usos (`withDemoCandidates` y `withDemoPosts`, más el manejo de `demo` en `match-deck.tsx` y `post-card.tsx`)
+- **Eliminar:** borrar `lib/demo.ts`, todos los imports de `@/lib/demo` (páginas de match, comunidad y mensajes), las ramas `demo` de `match-deck.tsx`, `post-card.tsx` y `chat-view.tsx`, y `components/demo-badge.tsx`
 
 ## Diseño
 
