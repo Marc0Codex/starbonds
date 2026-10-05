@@ -2,12 +2,15 @@ import { Globe, MapPin, Pencil, Plus } from "lucide-react"
 import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { getLocale, getTranslations } from "next-intl/server"
+import { getLocale, getTranslations, getNow } from "next-intl/server"
 
 import { Star } from "@/components/brand/star"
+import { PostCard } from "@/components/community/post-card"
 import { ArtworkGrid } from "@/components/profile/artwork-grid"
+import { FollowButton } from "@/components/profile/follow-button"
 import { ProfileAvatar } from "@/components/profile/profile-avatar"
 import { buttonVariants } from "@/components/ui/button"
+import { getUserPosts, isFollowing } from "@/lib/posts"
 import { getArtworksByOwner, getCurrentProfile, getProfileByUsername } from "@/lib/profile"
 import { publicUrl } from "@/lib/storage"
 import { groupTags, tagLabel } from "@/lib/tags"
@@ -36,8 +39,13 @@ export default async function ProfilePage({ params }: PageProps<"/u/[username]">
 
   const { profile, tags } = data
   const isOwn = current?.userId === profile.id
-  const artworks = await getArtworksByOwner(profile.id)
+  const [artworks, posts, following] = await Promise.all([
+    getArtworksByOwner(profile.id),
+    getUserPosts(profile.id, current?.userId ?? null),
+    current && !isOwn ? isFollowing(current.userId, profile.id) : Promise.resolve(false),
+  ])
   const grouped = groupTags(tags)
+  const now = (await getNow()).getTime()
 
   return (
     <div className="flex flex-col gap-16">
@@ -70,15 +78,20 @@ export default async function ProfilePage({ params }: PageProps<"/u/[username]">
             </p>
           </div>
           {isOwn && (
-            <div className="fade-in flex flex-wrap gap-2" style={{ "--delay": "0.4s" } as React.CSSProperties}>
-              <Link href="/profile/edit" className={cn(buttonVariants({ variant: "outline" }), "press")}>
-                <Pencil aria-hidden />
-                {t("edit")}
-              </Link>
+            <div className="fade-in flex flex-col items-stretch gap-2" style={{ "--delay": "0.4s" } as React.CSSProperties}>
               <Link href="/profile/artworks/new" className={cn(buttonVariants(), "press")}>
                 <Plus aria-hidden />
                 {t("addArtwork")}
               </Link>
+              <Link href="/profile/edit" className={cn(buttonVariants({ variant: "outline" }), "press")}>
+                <Pencil aria-hidden />
+                {t("edit")}
+              </Link>
+            </div>
+          )}
+          {!isOwn && current && (
+            <div className="fade-in" style={{ "--delay": "0.4s" } as React.CSSProperties}>
+              <FollowButton targetId={profile.id} initialFollowing={following} />
             </div>
           )}
         </div>
@@ -170,6 +183,19 @@ export default async function ProfilePage({ params }: PageProps<"/u/[username]">
           <p className="text-lg text-muted-foreground">{t("emptyOther")}</p>
         )}
       </section>
+
+      {posts.length > 0 && (
+        <section className="flex flex-col gap-8" aria-labelledby="posts-title">
+          <h2 id="posts-title" className="border-b pb-4 text-3xl font-extrabold sm:text-4xl">
+            {t("posts")}
+          </h2>
+          <div className="flex max-w-2xl flex-col gap-8">
+            {posts.map((post) => (
+              <PostCard key={post.id} post={post} now={now} canInteract={Boolean(current)} />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   )
 }

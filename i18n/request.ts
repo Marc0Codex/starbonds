@@ -21,6 +21,8 @@ export default getRequestConfig(async () => {
   const locale = await resolveLocale()
   return {
     locale,
+    // Only relative times are shown, so a fixed zone keeps server/client output identical.
+    timeZone: "UTC",
     messages: (await import(`../messages/${locale}.json`)).default,
   }
 })
