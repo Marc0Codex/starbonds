@@ -1,5 +1,4 @@
-// Privacy policy text. Values in [BRACKETS] must be filled in by the owner, and the
-// whole text should be reviewed by a lawyer before launch (template, not legal advice).
+// Privacy policy text. Should be reviewed by a lawyer before a wide launch (template, not legal advice).
 
 export const PRIVACY_UPDATED = "2026-10-05"
 
@@ -11,7 +10,7 @@ const es: Section[] = [
     title: "Quiénes somos",
     body: [
       "STARBONDS es una red social para artistas emergentes: comunidad, mercado, match para colaborar y mensajes. Esta política explica qué datos recopilamos, para qué los usamos y qué control tienes sobre ellos.",
-      "Responsable del tratamiento: [NOMBRE O RAZÓN SOCIAL], con domicilio en [PAÍS / CIUDAD]. Contacto de privacidad: [CORREO DE CONTACTO].",
+      "Responsable del tratamiento: Marco Antonio Calderón, con domicilio en Costa Rica. Contacto de privacidad: marcoantonio.calderonc@gmail.com.",
     ],
   },
   {
@@ -71,7 +70,7 @@ const es: Section[] = [
         "Vercel: alojamiento de la aplicación web.",
         "Google Fonts: tipografías de la interfaz (se descargan desde servidores de Google).",
       ],
-      "Al usar STARBONDS, tus datos pueden transferirse y guardarse fuera de tu país. [Indica aquí las garantías aplicables según tu jurisdicción.]",
+      "Al usar STARBONDS, tus datos pueden transferirse y guardarse fuera de tu país. Solo compartimos tus datos con estos proveedores para operar el servicio y bajo sus propias medidas de seguridad y confidencialidad.",
     ],
   },
   {
@@ -102,9 +101,9 @@ const es: Section[] = [
         "Acceder y corregir: puedes ver y editar tu perfil en cualquier momento.",
         "Eliminar: en Configuración › Zona de peligro puedes borrar tu cuenta y tus datos.",
         "Bloquear y reportar: desde el menú de cualquier perfil.",
-        "Solicitar una copia de tus datos u oponerte a un tratamiento: escríbenos a [CORREO DE CONTACTO].",
+        "Solicitar una copia de tus datos u oponerte a un tratamiento: escríbenos a marcoantonio.calderonc@gmail.com.",
       ],
-      "Según tu país, también puedes presentar una reclamación ante la autoridad de protección de datos correspondiente.",
+      "Tratamos tus datos conforme a la Ley N.º 8968 de Protección de la Persona frente al Tratamiento de sus Datos Personales de Costa Rica. Puedes presentar una reclamación ante la Agencia de Protección de Datos de los Habitantes (PRODHAB) o ante la autoridad de tu país.",
     ],
   },
   {
@@ -118,7 +117,7 @@ const es: Section[] = [
     id: "menores",
     title: "Menores de edad",
     body: [
-      "STARBONDS no está dirigido a menores de [EDAD MÍNIMA, por ejemplo 16] años. Si crees que un menor nos dio sus datos, escríbenos a [CORREO DE CONTACTO] y los eliminaremos.",
+      "STARBONDS no está dirigido a menores de 16 años. Si crees que un menor nos dio sus datos, escríbenos a marcoantonio.calderonc@gmail.com y los eliminaremos.",
     ],
   },
   {
@@ -136,7 +135,7 @@ const en: Section[] = [
     title: "Who we are",
     body: [
       "STARBONDS is a social network for emerging artists: community, marketplace, matching to collaborate, and messages. This policy explains what data we collect, why we use it, and what control you have over it.",
-      "Data controller: [NAME OR COMPANY], based in [COUNTRY / CITY]. Privacy contact: [CONTACT EMAIL].",
+      "Data controller: Marco Antonio Calderón, based in Costa Rica. Privacy contact: marcoantonio.calderonc@gmail.com.",
     ],
   },
   {
@@ -196,7 +195,7 @@ const en: Section[] = [
         "Vercel: hosting for the web app.",
         "Google Fonts: interface typefaces (downloaded from Google's servers).",
       ],
-      "By using STARBONDS, your data may be transferred to and stored outside your country. [Describe the applicable safeguards for your jurisdiction here.]",
+      "By using STARBONDS, your data may be transferred to and stored outside your country. We only share your data with these providers to run the service, under their own security and confidentiality measures.",
     ],
   },
   {
@@ -227,9 +226,9 @@ const en: Section[] = [
         "Access and correct: you can view and edit your profile at any time.",
         "Delete: in Settings › Danger zone you can delete your account and your data.",
         "Block and report: from the menu on any profile.",
-        "Request a copy of your data or object to processing: email us at [CONTACT EMAIL].",
+        "Request a copy of your data or object to processing: email us at marcoantonio.calderonc@gmail.com.",
       ],
-      "Depending on your country, you may also file a complaint with your data protection authority.",
+      "We process your data under Costa Rica's Law No. 8968 on the Protection of Individuals regarding the Processing of their Personal Data. You can file a complaint with Costa Rica's Data Protection Agency (PRODHAB) or with the authority in your country.",
     ],
   },
   {
@@ -243,7 +242,7 @@ const en: Section[] = [
     id: "minors",
     title: "Minors",
     body: [
-      "STARBONDS is not intended for people under [MINIMUM AGE, e.g. 16]. If you believe a minor has given us their data, email [CONTACT EMAIL] and we'll delete it.",
+      "STARBONDS is not intended for people under 16. If you believe a minor has given us their data, email marcoantonio.calderonc@gmail.com and we'll delete it.",
     ],
   },
   {
