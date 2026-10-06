@@ -16,6 +16,7 @@ const eslintConfig = defineConfig([
     "_legacy/**",
     ".claude/**",
     ".agents/**",
+    "video/**",
     "types/database.ts",
   ]),
 ]);

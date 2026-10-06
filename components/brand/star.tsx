@@ -1,8 +1,8 @@
+import { STAR_PATH } from "@/components/brand/star-path"
 import { cn } from "@/lib/utils"
 
 // The STARBONDS four-point star: brand mark, Match icon and celebration glyph.
-export const STAR_PATH =
-  "M16 1 C17 11 21 15 31 16 C21 17 17 21 16 31 C15 21 11 17 1 16 C11 15 15 11 16 1 Z"
+export { STAR_PATH }
 
 export function Star({
   className,

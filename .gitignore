@@ -52,3 +52,7 @@ supabase/.branches/
 
 # local agent settings
 .claude/settings.local.json
+
+# promo video (Remotion) build output
+/video/node_modules/
+/video/out/
