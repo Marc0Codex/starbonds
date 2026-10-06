@@ -5,6 +5,9 @@ import { Config } from "@remotion/cli/config"
 Config.setVideoImageFormat("jpeg")
 Config.setJpegQuality(95)
 Config.setOverwriteOutput(true)
+// Standard limited-range 4:2:0 so every browser (incl. iOS Safari) decodes it.
+Config.setPixelFormat("yuv420p")
+Config.setColorSpace("bt709")
 // Keep memory use moderate on this machine.
 Config.setConcurrency(2)
 
