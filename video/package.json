@@ -9,6 +9,7 @@
     "render:horizontal": "remotion render src/index.ts PromoHorizontal out/starbonds-promo-horizontal.mp4 --codec=h264 --crf=16 --concurrency=2",
     "posters": "remotion still src/index.ts PromoVertical out/starbonds-promo-vertical-poster.png --frame=380 && remotion still src/index.ts PromoHorizontal out/starbonds-promo-horizontal-poster.png --frame=380",
     "render": "npm run render:vertical && npm run render:horizontal && npm run posters",
+    "publish:web": "node -e \"const fs=require('fs');for(const f of fs.readdirSync('out'))fs.copyFileSync('out/'+f,'../public/videos/'+f)\"",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

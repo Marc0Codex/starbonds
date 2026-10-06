@@ -5,6 +5,7 @@ import { getTranslations } from "next-intl/server"
 import { Reveal } from "@/components/brand/reveal"
 import { Star } from "@/components/brand/star"
 import { ArtTiles } from "@/components/landing/art-tiles"
+import { PromoVideo } from "@/components/landing/promo-video"
 import { Logo } from "@/components/logo"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -83,6 +84,17 @@ export default async function LandingPage() {
             ))}
           </div>
         </div>
+
+        {/* Promo video */}
+        <section aria-labelledby="video-title" className="mx-auto flex max-w-7xl flex-col gap-10 px-5 pt-28 sm:px-10">
+          <div className="flex flex-col gap-3">
+            <p className="eyebrow">{t("videoEyebrow")}</p>
+            <h2 id="video-title" className="text-[clamp(2.25rem,5vw,4rem)] font-extrabold leading-none">
+              {t("videoTitle")} <span className="serif-accent text-primary">{t("videoAccent")}</span>
+            </h2>
+          </div>
+          <PromoVideo label={t("videoLabel")} playLabel={t("videoPlay")} pauseLabel={t("videoPause")} />
+        </section>
 
         {/* How it works */}
         <section id="como" className="mx-auto flex max-w-7xl flex-col gap-14 px-5 py-28 sm:px-10">

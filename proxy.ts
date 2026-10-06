@@ -9,6 +9,6 @@ export async function proxy(request: NextRequest) {
 export const config = {
   matcher: [
     // Skip static assets, images, PWA files and metadata routes.
-    "/((?!_next/static|_next/image|favicon.ico|manifest.webmanifest|sw.js|robots.txt|opengraph-image|icons/|.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|manifest.webmanifest|sw.js|robots.txt|opengraph-image|icons/|videos/|.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico|mp4|webm)$).*)",
   ],
 }
