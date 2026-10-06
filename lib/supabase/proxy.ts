@@ -4,7 +4,7 @@ import { NextResponse, type NextRequest } from "next/server"
 import type { Database } from "@/types/database"
 
 // "/listing" is the public listing detail; "/marketplace" itself requires sign-in.
-const PUBLIC_PATHS = ["/", "/login", "/signup", "/auth", "/u", "/artworks", "/posts", "/listing", "/privacy", "/offline"]
+const PUBLIC_PATHS = ["/", "/login", "/signup", "/auth", "/u", "/artworks", "/posts", "/listing", "/privacy", "/offline", "/qr"]
 
 function isPublicPath(pathname: string) {
   return PUBLIC_PATHS.some((p) =>

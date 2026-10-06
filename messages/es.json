@@ -269,6 +269,22 @@
     "privacyLink": "Política de privacidad",
     "signupConsent": "Al crear tu cuenta aceptas nuestra <link>política de privacidad</link>."
   },
+  "qr": {
+    "metaTitle": "Código QR",
+    "eyebrow": "Gratis · sin descargas",
+    "title": "Escanea y",
+    "accent": "únete",
+    "intro": "Apunta la cámara de tu celular al código para abrir STARBONDS. Es gratis y funciona desde cualquier navegador.",
+    "qrAlt": "Código QR que abre {url}",
+    "downloadPng": "Descargar PNG",
+    "downloadSvg": "Descargar SVG",
+    "copy": "Copiar enlace",
+    "copied": "¡Enlace copiado!",
+    "tips": "PNG para redes y pantallas; SVG para imprimir afiches o flyers en cualquier tamaño.",
+    "link": "Código QR",
+    "shareTitle": "Comparte STARBONDS",
+    "shareDescription": "Código QR para invitar a otros artistas, en PNG o SVG."
+  },
   "offline": {
     "title": "Sin",
     "accent": "conexión",

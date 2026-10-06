@@ -18,11 +18,12 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function SettingsPage() {
   const current = await getCurrentProfile()
   if (!current) redirect("/login")
-  const [t, ts, tset, tLegal, blocked] = await Promise.all([
+  const [t, ts, tset, tLegal, tQr, blocked] = await Promise.all([
     getTranslations("nav"),
     getTranslations("sections"),
     getTranslations("settings"),
     getTranslations("legal"),
+    getTranslations("qr"),
     getBlockedUsers(),
   ])
 
@@ -52,6 +53,18 @@ export default async function SettingsPage() {
       <div className="rise-in rounded-[24px] border bg-card p-6" style={{ "--delay": "0.15s" } as React.CSSProperties}>
         <BlockedList users={blocked} />
       </div>
+
+      <Link
+        href="/qr"
+        className="rise-in group flex items-center justify-between gap-6 rounded-[24px] border bg-card p-6 transition-[background-color,padding] duration-300 hover:bg-raise hover:pl-8"
+        style={{ "--delay": "0.17s" } as React.CSSProperties}
+      >
+        <span className="flex flex-col gap-1">
+          <span className="font-heading text-lg font-bold">{tQr("shareTitle")}</span>
+          <span className="text-muted-foreground">{tQr("shareDescription")}</span>
+        </span>
+        <ArrowRight className="size-6 transition-transform duration-300 group-hover:-rotate-45 group-hover:text-spark" aria-hidden />
+      </Link>
 
       <Link
         href="/privacy"

@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils"
 export default async function LandingPage() {
   const t = await getTranslations("landing")
   const tLegal = await getTranslations("legal")
+  const tQr = await getTranslations("qr")
   const mediums = t.raw("mediums") as string[]
   const line1 = t("line1").split(" ").length
   const line2 = t("line2").split(" ").length
@@ -186,6 +187,9 @@ export default async function LandingPage() {
         <span className="font-heading font-bold text-foreground">STARBONDS</span>
         <span className="flex flex-wrap gap-x-4 gap-y-1">
           <span>{t("footer")} · ES / EN</span>
+          <Link href="/qr" className="underline-offset-4 hover:text-foreground hover:underline">
+            {tQr("link")}
+          </Link>
           <Link href="/privacy" className="underline-offset-4 hover:text-foreground hover:underline">
             {tLegal("privacyLink")}
           </Link>
