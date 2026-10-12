@@ -75,7 +75,7 @@ export default async function ProfilePage({ params }: PageProps<"/u/[username]">
               </span>
             )}
           </div>
-          <div className="flex min-w-0 flex-1 flex-col gap-2">
+          <div className="flex w-full min-w-0 flex-col gap-2 sm:w-auto sm:flex-1">
             <h1 className="text-[clamp(2.5rem,7vw,5rem)] font-extrabold leading-[0.95]">
               <span className="reveal">
                 <span className="break-words">{profile.display_name}</span>
@@ -86,7 +86,7 @@ export default async function ProfilePage({ params }: PageProps<"/u/[username]">
             </p>
           </div>
           {isOwn && (
-            <div className="fade-in flex flex-col items-stretch gap-2" style={{ "--delay": "0.4s" } as React.CSSProperties}>
+            <div className="fade-in grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:flex-col sm:items-stretch" style={{ "--delay": "0.4s" } as React.CSSProperties}>
               <Link href="/profile/artworks/new" className={cn(buttonVariants(), "press")}>
                 <Plus aria-hidden />
                 {t("addArtwork")}
