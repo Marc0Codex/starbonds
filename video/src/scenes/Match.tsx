@@ -30,7 +30,7 @@ function Tag({ label, shared }: { label: string; shared: boolean }) {
   )
 }
 
-function Card({ name, handle, palette, tags, badge }: { name: string; handle: string; palette: number; tags: [string, boolean][]; badge: string }) {
+export function Card({ name, handle, palette, tags, badge }: { name: string; handle: string; palette: number; tags: [string, boolean][]; badge: string }) {
   return (
     <div
       style={{

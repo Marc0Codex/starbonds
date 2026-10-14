@@ -1,6 +1,6 @@
 # STARBONDS — Handoff
 
-> Léelo completo antes de trabajar en el proyecto. Última actualización: 2026-10-05 (commit `f8582d0`).
+> Léelo completo antes de trabajar en el proyecto. Última actualización: 2026-10-14 (video explicativo de 30 s).
 > Al terminar una sesión de trabajo, actualiza las secciones **Estado** y **Pendientes**.
 
 ## Qué es
@@ -20,7 +20,7 @@ PWA de red social para artistas emergentes a quienes les cuesta que su arte se v
 | i18n | next-intl 4, locale por cookie `NEXT_LOCALE` (sin segmento `[locale]`), `messages/es.json` y `en.json`, `timeZone: "UTC"` |
 | Backend | Supabase, proyecto "StarBonds", ref `deyyrcruqjipchofigzz` (us-east-1), `@supabase/ssr` con `getClaims()` y la clave **publishable** |
 | Hosting | Vercel, team `kosmi-carp`, proyecto `starbonds`, con la integración de Supabase |
-| Video | Remotion 4 en `video/` (paquete aparte, fuera del tsconfig, eslint y build de la app) |
+| Video | Remotion 4 en `video/` (paquete aparte, fuera del tsconfig, eslint y build de la app). Promo de 15 s (`src/scenes/`) y explicativo de 30 s (`src/explainer/`) |
 
 ## Variables de entorno (nunca al repo)
 `.env.local` está en `.gitignore`; en el repo solo va `.env.example`. En Vercel las inyecta la integración de Supabase.
@@ -83,7 +83,7 @@ Todo vive en `lib/demo.ts` y no se guarda en Supabase: 5 artistas, 4 posts y 2 c
 - **Commits:** en inglés, descriptivos, push a `main` (despliega solo). Confirmar el deploy en producción.
 - **Skills instaladas que hay que usar:** `ui-ux-pro-max` (diseño), skills de Supabase (`supabase`, `supabase-postgres-best-practices`), y Claude Design o Artifacts para propuestas visuales.
 
-## Estado (2026-10-05)
+## Estado (2026-10-14)
 Fases 0–8 completas y en producción:
 - base y auth;
 - onboarding, perfil y portafolio;
@@ -94,6 +94,7 @@ Fases 0–8 completas y en producción:
 - actividad (notificaciones), bloquear, reportar y borrar cuenta;
 - privacidad, PWA offline, OG, headers de seguridad;
 - video promo de 15 s (vertical y horizontal) en la landing;
+- video explicativo de 30 s (vertical y horizontal, 2026-10-14) en el que Plei recorre todas las funciones, con efectos de sonido sintéticos. Es para redes y no está en la landing; ver `video/README.md`;
 - página `/qr` con descargas PNG/SVG;
 - revisión de seguridad y endurecimiento de RLS.
 
@@ -106,4 +107,4 @@ Fases 0–8 completas y en producción:
 **No construido todavía:**
 - Adjuntos de imagen en el chat. El bucket y las políticas ya existen, y `media_path` debe empezar con `<conversation_id>/`.
 - Fase 9 (no pedida aún): pagos con Stripe Connect, notificaciones push, matching con IA, app nativa con Capacitor, Google login.
-- Ideas opcionales: versión del video en inglés o de 30 s, dominio propio. Con dominio propio hay que definir `NEXT_PUBLIC_SITE_URL` y **reimprimir los QR**.
+- Ideas opcionales: versión en inglés de los videos, dominio propio. Con dominio propio hay que definir `NEXT_PUBLIC_SITE_URL` y **reimprimir los QR**.
